@@ -9,13 +9,13 @@ public interface IRepository<TEntity> : IDisposable where TEntity : Entity
 
     Task<TEntity> GetByIdAsync(Guid id);
 
-    Task<List<TEntity>> GetAll();
+    Task<List<TEntity>> GetAllAsync();
 
     Task UpdateAsync(TEntity entity);
 
     Task DeleteByIdAsync(Guid id);
 
-    Task<IEnumerable<TEntity>> Get(Expression<Func<TEntity, bool>> predicate);
+    Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate);
 
-    Task<int> SaveChanges();
+    Task<int> SaveChangesAsync();
 }
