@@ -1,0 +1,6 @@
+@mba.modulo1.blog.api_HostAddress = http://localhost:5110
+
+GET {{mba.modulo1.blog.api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

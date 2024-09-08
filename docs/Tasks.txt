@@ -1,0 +1,167 @@
+ Planejamento e Setup do Projeto
+- Configurar Repositório Git: 
+	Criar repositório Git. OK
+
+- Configurar Projeto ASP.NET:
+	Criar e configurar o projeto ASP.NET Core:
+		MVC
+		API
+
+- Configurar Banco de Dados: 
+	Configurar Entity Framework Core para integração com o banco de dados.
+
+- Criar Modelos de Dados: 
+	Definir modelos de dados para Posts e Comentários.
+
+- Criar Migration Inicial:
+	Criar e aplicar a migration inicial para o banco de dados.
+
+ Desenvolvimento da Interface Web (MVC)
+- Criar Views para Listagem de Posts: 
+	Desenvolver a view para listar todos os posts.
+
+- Criar Views para Criação de Posts: 
+	Desenvolver a view para criar novos posts.
+
+- Criar Views para Edição de Posts: 
+	Desenvolver a view para editar posts existentes.
+
+- Criar Views para Exclusão de Posts: 
+	Desenvolver a view para excluir posts.
+
+- Criar Views para Visualização de Posts: 
+	Desenvolver a view para visualizar um post específico.
+
+- Criar Views para Gerenciamento de Comentários: 
+	Desenvolver views para criar, editar, visualizar e excluir comentários em posts.
+
+ Desenvolvimento da API
+- Criar Endpoints para Listagem de Posts: 
+	Desenvolver endpoint GET para listar todos os posts.
+
+- Criar Endpoints para Criação de Posts: 
+	Desenvolver endpoint POST para criação de posts.
+	
+- Criar Endpoints para Edição de Posts: 
+	Desenvolver endpoint PUT para edição de posts.
+	
+- Criar Endpoints para Exclusão de Posts: 
+	Desenvolver endpoint DELETE para exclusão de posts.
+
+- Criar Endpoints para Visualização de Post: 
+	Desenvolver endpoint GET para visualizar um post específico.
+		
+- Criar Endpoints para Gerenciamento de Comentários: 
+	Desenvolver endpoints GET, POST, PUT e DELETE para comentários.
+
+ Autenticação e Autorização
+- Implementar Autenticação: 
+	Configurar autenticação usando Identity.
+	
+- Implementar Autorização: 
+	Implementar autorização para garantir que somente usuários autenticados possam criar, editar e excluir posts e comentários.
+	
+- Criar Roles de Usuário: 
+	Definir e implementar diferentes níveis de acesso (e.g., Administrador, Usuário).
+
+ Testes e Validação
+- Criar postman para api. 
+- Escrever Testes Unitários para Modelos: Desenvolver testes unitários para os modelos de dados.
+- Escrever Testes Unitários para Controladores: Desenvolver testes unitários para os controladores.
+- Escrever Testes de Integração para API: Desenvolver testes de integração para os endpoints da API.
+- Realizar Testes Manuais na Interface Web: Executar testes manuais para validar o funcionamento das views.
+
+ Documentação
+- Documentar API RESTful: Criar documentação para a API utilizando ferramentas como Swagger.
+- Documentar Processo de Deploy: Documentar o processo de deploy e configuração da aplicação.
+- Criar Documentação para Desenvolvedores: Instruções para configuração do ambiente de desenvolvimento e contribuição no projeto.
+
+---- Modelo de Dados
+Esta classe representa o usuário do sistema. Ela herda de IdentityUser, que fornece todas as propriedades necessárias para autenticação e autorização, como UserName, PasswordHash, Email, etc
+using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
+
+public class ApplicationUser : IdentityUser
+{
+    // Propriedade para associar o usuário aos posts que ele criou
+    public ICollection<Post> Posts { get; set; }
+    
+    // Propriedade para associar o usuário aos comentários que ele fez
+    public ICollection<Comment> Comments { get; set; }
+}
+
+
+O modelo Post agora inclui uma referência ao autor do post, que é um ApplicationUser.
+using System;
+using System.Collections.Generic;
+
+public class Post
+{
+    public int Id { get; set; }              // Chave primária
+    public string Title { get; set; }        // Título do post
+    public string Content { get; set; }      // Conteúdo do post
+    public DateTime CreatedAt { get; set; }  // Data de criação do post
+    public DateTime UpdatedAt { get; set; }  // Data da última atualização do post
+    
+    // Relação com o autor do post
+    public string AuthorId { get; set; }     // Chave estrangeira para ApplicationUser
+    public ApplicationUser Author { get; set; }
+    
+    // Relação com os comentários do post
+    public ICollection<Comment> Comments { get; set; }
+}
+
+O modelo Comment também inclui uma referência ao autor do comentário, que é um ApplicationUser.
+using System;
+
+public class Comment
+{
+    public int Id { get; set; }              // Chave primária
+    public string Content { get; set; }      // Conteúdo do comentário
+    public DateTime CreatedAt { get; set; }  // Data de criação do comentário
+    public DateTime UpdatedAt { get; set; }  // Data da última atualização do comentário
+    
+    // Relação com o Post
+    public int PostId { get; set; }          // Chave estrangeira para o Post
+    public Post Post { get; set; }
+    
+    // Relação com o autor do comentário
+    public string AuthorId { get; set; }     // Chave estrangeira para ApplicationUser
+    public ApplicationUser Author { get; set; }
+}
+
+Configuração do Identity no Contexto
+Você precisará configurar o DbContext para incluir o Identity e associar os modelos de dados ao banco de dados.
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+{
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
+    {
+    }
+
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        // Configurações adicionais se necessário
+
+        // Relacionamento entre Post e ApplicationUser
+        builder.Entity<Post>()
+            .HasOne(p => p.Author)
+            .WithMany(u => u.Posts)
+            .HasForeignKey(p => p.AuthorId);
+
+        // Relacionamento entre Comment e ApplicationUser
+        builder.Entity<Comment>()
+            .HasOne(c => c.Author)
+            .WithMany(u => u.Comments)
+            .HasForeignKey(c => c.AuthorId);
+    }
+}
+
