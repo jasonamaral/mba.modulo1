@@ -5,16 +5,35 @@
 - Configurar Projeto ASP.NET:
 	Criar e configurar o projeto ASP.NET Core:
 		MVC
-		API
+		API OK
 
 - Configurar Banco de Dados: 
-	Configurar Entity Framework Core para integração com o banco de dados.
+	Configurar Entity Framework Core para integração com o banco de dados. OK
 
 - Criar Modelos de Dados: 
-	Definir modelos de dados para Posts e Comentários.
+	Definir modelos de dados para Posts e Comentários. OK
 
 - Criar Migration Inicial:
-	Criar e aplicar a migration inicial para o banco de dados.
+	Criar e aplicar a migration inicial para o banco de dados. OK
+
+ Desenvolvimento da API
+- Criar Endpoints para Listagem de Posts: 
+	Desenvolver endpoint GET para listar todos os posts.
+
+- Criar Endpoints para Criação de Posts: 
+	Desenvolver endpoint POST para criação de posts.
+	
+- Criar Endpoints para Edição de Posts: 
+	Desenvolver endpoint PUT para edição de posts.
+	
+- Criar Endpoints para Exclusão de Posts: 
+	Desenvolver endpoint DELETE para exclusão de posts.
+
+- Criar Endpoints para Visualização de Post: 
+	Desenvolver endpoint GET para visualizar um post específico.
+		
+- Criar Endpoints para Gerenciamento de Comentários: 
+	Desenvolver endpoints GET, POST, PUT e DELETE para comentários.
 
  Desenvolvimento da Interface Web (MVC)
 - Criar Views para Listagem de Posts: 
@@ -35,24 +54,6 @@
 - Criar Views para Gerenciamento de Comentários: 
 	Desenvolver views para criar, editar, visualizar e excluir comentários em posts.
 
- Desenvolvimento da API
-- Criar Endpoints para Listagem de Posts: 
-	Desenvolver endpoint GET para listar todos os posts.
-
-- Criar Endpoints para Criação de Posts: 
-	Desenvolver endpoint POST para criação de posts.
-	
-- Criar Endpoints para Edição de Posts: 
-	Desenvolver endpoint PUT para edição de posts.
-	
-- Criar Endpoints para Exclusão de Posts: 
-	Desenvolver endpoint DELETE para exclusão de posts.
-
-- Criar Endpoints para Visualização de Post: 
-	Desenvolver endpoint GET para visualizar um post específico.
-		
-- Criar Endpoints para Gerenciamento de Comentários: 
-	Desenvolver endpoints GET, POST, PUT e DELETE para comentários.
 
  Autenticação e Autorização
 - Implementar Autenticação: 

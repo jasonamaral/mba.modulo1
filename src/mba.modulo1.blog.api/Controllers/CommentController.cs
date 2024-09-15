@@ -21,14 +21,13 @@ public class CommentController : MainController
         _mapper = mapper;
     }
 
-    [HttpGet("GetById/{id:guid}")]
-    public async Task<ActionResult<CommentDTO>> GetByIdAsync(Guid id)
+    [HttpGet("GetByPostId/{id:guid}")]
+    public async Task<IEnumerable<CommentDTO>> GetByIdAsync(Guid id)
     {
-        var comment = await GetCommentByIdAsync(id);
 
-        if (comment == null) return NotFound();
+       var comments = _mapper.Map<IEnumerable<CommentDTO>>(await _commentRepository.GetCommentsByPostAsync(id));
 
-        return Ok(comment);
+        return comments;
     }
 
     [HttpPost]

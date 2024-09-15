@@ -5,5 +5,4 @@ namespace MBA.Modulo1.Blog.Domain.Interfaces;
 public interface IPostRepository : IRepository<Post>
 {
     Task<IEnumerable<Post>> GetPostsByAuthorAsync(string author);
-    Task<IEnumerable<Comment>> GetCommentsByPostAsync(Guid postId);
 }

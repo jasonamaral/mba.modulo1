@@ -29,7 +29,7 @@ public class PostService : BaseService, IPostService
     public async Task DeleteAsync(Guid id)
     {
         var post = await _postRepository.GetByIdAsync(id);
-        if (post != null)
+        if (post == null)
         {
             Notify("Post não encontrado!");
             return;

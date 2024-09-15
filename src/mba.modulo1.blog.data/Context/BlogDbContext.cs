@@ -1,10 +1,10 @@
 ﻿using mba.modulo1.blog.domain.Entities;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace MBA.Modulo1.Blog.Data.Context
 {
-    public class BlogDbContext : DbContext//IdentityDbContext< ApplicationUser>
+    public class BlogDbContext : IdentityDbContext<ApplicationUser>
     {
         public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
         {

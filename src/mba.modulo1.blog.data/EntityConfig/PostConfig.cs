@@ -16,12 +16,12 @@ public class PostConfig : IEntityTypeConfiguration<Post>
         builder.Property(j => j.UpdatedAt).IsRequired().HasColumnType("datetime");
         builder.Property(j => j.AuthorId).IsRequired().HasColumnType("nvarchar(450)");
 
-        builder.HasMany(j => j.Comments)
-        .WithOne(j => j.Post)
-        .HasForeignKey(j => j.PostId);
+        builder
+            .HasMany(j => j.Comments)
+            .WithOne(j => j.Post)
+            .HasForeignKey(j => j.PostId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(j => j.User).WithMany(j => j.Posts).HasForeignKey(j => j.AuthorId);
-
-
     }
 }

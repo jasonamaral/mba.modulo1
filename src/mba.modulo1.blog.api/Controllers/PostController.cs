@@ -37,6 +37,12 @@ public class PostController : MainController
         return Ok(post);
     }
 
+    [HttpGet("GetByAuthorId/{id:guid}")]
+    public async Task<IEnumerable<PostDTO>> GetAll(string id)
+    {
+        return _mapper.Map<IEnumerable<PostDTO>>(await _postRepository.GetPostsByAuthorAsync(id));
+    }
+
     [HttpPost("Add")]
     public async Task<ActionResult<PostDTO>> AddAsync(PostDTO postDTO)
     {

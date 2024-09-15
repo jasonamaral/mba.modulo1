@@ -1,4 +1,5 @@
-﻿using MBA.Modulo1.Blog.API.Data;
+﻿using mba.modulo1.blog.domain.Entities;
+using MBA.Modulo1.Blog.API.Data;
 using MBA.Modulo1.Blog.Data.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -27,30 +28,23 @@ public static class DbMigrationHelpers
         var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
 
         var context = scope.ServiceProvider.GetRequiredService<BlogDbContext>();
-        var contextId = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        //var contextId = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         if (env.IsDevelopment())
         {
             await context.Database.MigrateAsync();
-            await contextId.Database.MigrateAsync();
+           // await contextId.Database.MigrateAsync();
 
-            await EnsureSeedAdmin(contextId);
+            await EnsureSeedAdmin(context);
         }
-        
     }
 
-    private static async Task EnsureSeedAdmin(ApplicationDbContext context)
+    private static async Task EnsureSeedAdmin(BlogDbContext context)
     {
         if (context.Users.Any())
         {
             return;
         }
-
-        //var userManager = context.GetService<UserManager<IdentityUser>>();
-        //var roleManager = context.GetService<RoleManager<IdentityRole>>();
-
-        //await roleManager.CreateAsync(new IdentityRole("admin"));
-        //await roleManager.CreateAsync(new IdentityRole("user"));
 
         var adminRole = new IdentityRole
         {
@@ -70,13 +64,11 @@ public static class DbMigrationHelpers
 
         await context.SaveChangesAsync();
 
-        // Admin user details
         var adminEmail = "admin@admin.com";
         var adminPassword = "Teste123";
         var passwordHasher = new PasswordHasher<IdentityUser>();
 
-        // Create the admin user
-        var adminUser = new IdentityUser
+        var adminUser = new ApplicationUser
         {
             Id = Guid.NewGuid().ToString(),
             UserName = adminEmail,
@@ -93,10 +85,6 @@ public static class DbMigrationHelpers
         string hashedPassword = passwordHasher.HashPassword(adminUser, adminPassword);
         adminUser.PasswordHash = hashedPassword;
 
-        //await context.Roles.AddAsync(new IdentityRole("Admin"));
-        //await context.Roles.AddAsync(new IdentityRole("User"));
-        //await context.UserRoles.AddAsync(new IdentityUserRole<string>();
-
         await context.Users.AddAsync(adminUser);
 
         var userRole = new IdentityUserRole<string>
@@ -106,12 +94,6 @@ public static class DbMigrationHelpers
         };
         await context.UserRoles.AddAsync(userRole);
 
-        //var result = await userManager.CreateAsync(adminUser, adminPassword);
-        //if (result.Succeeded)
-        //{
-        // Add the admin user to the Admin role
-        //await userManager.AddToRoleAsync(adminUser, "admin");
-        //}
         context.SaveChanges();
     }
 }

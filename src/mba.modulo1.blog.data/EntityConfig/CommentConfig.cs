@@ -16,9 +16,10 @@ public class CommentConfig : IEntityTypeConfiguration<Comment>
         builder.Property(j => j.UpdatedAt).IsRequired().HasColumnType("datetime");
         builder.Property(j => j.AuthorId).IsRequired().HasColumnType("nvarchar(450)");
 
-        builder
-            .HasOne(j => j.User)
-            .WithMany(j => j.Comments)
-            .HasForeignKey(j => j.AuthorId);
+        builder.
+            HasOne(j => j.User).
+            WithMany(j => j.Comments)
+            .HasForeignKey(j => j.AuthorId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

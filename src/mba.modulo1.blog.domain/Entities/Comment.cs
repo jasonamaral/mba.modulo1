@@ -1,5 +1,4 @@
 ﻿using MBA.Modulo1.Blog.Domain.Entities;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace mba.modulo1.blog.domain.Entities;
 

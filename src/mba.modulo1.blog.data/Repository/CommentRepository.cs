@@ -1,7 +1,7 @@
 ﻿using mba.modulo1.blog.domain.Entities;
 using MBA.Modulo1.Blog.Data.Context;
 using MBA.Modulo1.Blog.Domain.Interfaces;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MBA.Modulo1.Blog.Data.Repository;
 

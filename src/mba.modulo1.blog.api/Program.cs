@@ -1,7 +1,6 @@
 using MBA.Modulo1.Blog.API.Config;
 using MBA.Modulo1.Blog.API.Data;
 using MBA.Modulo1.Blog.Data.Context;
-using MBA.Modulo1.Blog.Data.EntityConfig;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,12 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<BlogDbContext>(opt =>
-{
-    opt.UseSqlServer(connectionString);
-});
-
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<BlogDbContext>(opt => opt.UseSqlServer(connectionString));
+builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(connectionString));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
