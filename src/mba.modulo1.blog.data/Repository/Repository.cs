@@ -1,4 +1,4 @@
-﻿using mba.modulo1.blog.mvc.Data.Context;
+﻿using MBA.Modulo1.Blog.Data.Context;
 using MBA.Modulo1.Blog.Domain.Entities;
 using MBA.Modulo1.Blog.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;

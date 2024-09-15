@@ -2,8 +2,7 @@
 
 namespace MBA.Modulo1.Blog.Domain.Interfaces;
 
-public interface IPostRepository : IRepository<Post>
+public interface ICommnetRepository : IRepository<Comment>
 {
-    Task<IEnumerable<Post>> GetPostsByAuthorAsync(string author);
     Task<IEnumerable<Comment>> GetCommentsByPostAsync(Guid postId);
 }

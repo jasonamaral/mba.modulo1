@@ -1,5 +1,5 @@
 using mba.modulo1.blog.mvc.Data;
-using mba.modulo1.blog.mvc.Data.Context;
+using MBA.Modulo1.Blog.Data.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

@@ -4,16 +4,15 @@ namespace mba.modulo1.blog.domain.Entities;
 
 public class Post : Entity
 {
-    public string Title { get; set; }        // Título do post
-    public string Content { get; set; }      // Conteúdo do post
-    public DateTime CreatedAt { get; set; }  // Data de criação do post
-    public DateTime UpdatedAt { get; set; }  // Data da última atualização do post
+    public string? Title { get; set; }
+    public string? Content { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 
-    public Guid AuthorId { get; set; }     // Chave estrangeira para ApplicationUser
+    public string AuthorId { get; set; }
 
     // EF
-    // public ApplicationUser Author { get; set; }
+    public virtual ApplicationUser User { get; set; }
 
-    // Relação com os comentários do post
-    public ICollection<Comment> Comments { get; set; }
+    public virtual ICollection<Comment>? Comments { get; set; }
 }

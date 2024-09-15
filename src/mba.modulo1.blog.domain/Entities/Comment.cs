@@ -1,19 +1,20 @@
 ﻿using MBA.Modulo1.Blog.Domain.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace mba.modulo1.blog.domain.Entities;
 
 public class Comment : Entity
 {
-    public string Content { get; set; }      // Conteúdo do comentário
-    public DateTime CreatedAt { get; set; }  // Data de criação do comentário
-    public DateTime UpdatedAt { get; set; }  // Data da última atualização do comentário
+    public string Content { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 
-    // Relação com o Post
-    public Guid PostId { get; set; }          // Chave estrangeira para o Post
+    public Guid PostId { get; set; }
 
-    public Guid AuthorId { get; set; }     // Chave estrangeira para ApplicationUser
+    public string AuthorId { get; set; }
 
-    // EF
-   // public ApplicationUser Author { get; set; }
-    public Post Post { get; set; }
+    //EF
+    public virtual ApplicationUser User { get; set; }
+
+    public virtual Post Post { get; set; }
 }

@@ -4,9 +4,9 @@ namespace MBA.Modulo1.Blog.Domain.Interfaces;
 
 public interface ICommentService : IDisposable
 {
-    Task Add(Comment comment);
+    Task AddAsync(Comment comment);
 
-    Task Update(Comment comment);
+    Task UpdateAsync(Comment comment);
 
-    Task Delete(Comment id);
+    Task DeleteAsync(Guid id);
 }
