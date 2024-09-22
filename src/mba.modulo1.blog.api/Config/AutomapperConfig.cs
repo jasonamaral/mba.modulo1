@@ -9,6 +9,8 @@ public class AutomapperConfig : Profile
     public AutomapperConfig()
     {
         CreateMap<Post, PostDTO>().ReverseMap();
+        CreateMap<Post, PostSaveDTO>().ReverseMap();
         CreateMap<Comment, CommentDTO>().ReverseMap();
+        CreateMap<Comment, CommentSaveDTO>().ReverseMap();
     }
 }

@@ -31,22 +31,20 @@ public class CommentController : MainController
     }
 
     [HttpPost]
-    public async Task<ActionResult<CommentDTO>> Add(CommentDTO commentDTO)
+    public async Task<ActionResult<CommentSaveDTO>> Add(CommentSaveDTO commentDTO)
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
+        
+        var comment = _mapper.Map<Comment>(commentDTO);
+        comment.Id = Guid.NewGuid();  // Ensure a new ID is generated
 
-        await _commentRepository.AddAsync(_mapper.Map<Comment>(commentDTO));
+        await _commentRepository.AddAsync(comment);
         return CustomResponse(HttpStatusCode.Created, commentDTO);
     }
 
     [HttpPut("Update/{id:guid}")]
-    public async Task<IActionResult> UpdateAsync(Guid id, CommentDTO commentDTO)
+    public async Task<IActionResult> UpdateAsync(Guid id, CommentSaveDTO commentDTO)
     {
-        if (id != commentDTO.Id)
-        {
-            NotifyError("Os ids informados não são iguais!");
-            return CustomResponse(HttpStatusCode.NoContent);
-        }
 
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -61,7 +59,7 @@ public class CommentController : MainController
     }
 
     [HttpDelete("Delete/{id:guid}")]
-    public async Task<ActionResult<CommentDTO>> DeleteAsync(Guid id)
+    public async Task<IActionResult> DeleteAsync(Guid id)
     {
         var comment = await GetCommentByIdAsync(id);
         if (comment == null) return NotFound();

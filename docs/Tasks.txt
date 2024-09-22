@@ -18,22 +18,22 @@
 
  Desenvolvimento da API
 - Criar Endpoints para Listagem de Posts: 
-	Desenvolver endpoint GET para listar todos os posts.
+	Desenvolver endpoint GET para listar todos os posts. OK
 
 - Criar Endpoints para Criação de Posts: 
-	Desenvolver endpoint POST para criação de posts.
+	Desenvolver endpoint POST para criação de posts. OK
 	
 - Criar Endpoints para Edição de Posts: 
-	Desenvolver endpoint PUT para edição de posts.
+	Desenvolver endpoint PUT para edição de posts. OK
 	
 - Criar Endpoints para Exclusão de Posts: 
-	Desenvolver endpoint DELETE para exclusão de posts.
+	Desenvolver endpoint DELETE para exclusão de posts. OK
 
 - Criar Endpoints para Visualização de Post: 
-	Desenvolver endpoint GET para visualizar um post específico.
+	Desenvolver endpoint GET para visualizar um post específico. OK
 		
 - Criar Endpoints para Gerenciamento de Comentários: 
-	Desenvolver endpoints GET, POST, PUT e DELETE para comentários.
+	Desenvolver endpoints GET, POST, PUT e DELETE para comentários. OK
 
  Desenvolvimento da Interface Web (MVC)
 - Criar Views para Listagem de Posts: 

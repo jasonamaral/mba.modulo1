@@ -44,7 +44,7 @@ public class PostController : MainController
     }
 
     [HttpPost("Add")]
-    public async Task<ActionResult<PostDTO>> AddAsync(PostDTO postDTO)
+    public async Task<ActionResult<PostSaveDTO>> AddAsync(PostSaveDTO postDTO)
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -53,20 +53,15 @@ public class PostController : MainController
     }
 
     [HttpPut("Update/{id:guid}")]
-    public async Task<IActionResult> UpdateAsync(Guid id, PostDTO postDTO)
+    public async Task<IActionResult> UpdateAsync(Guid id, PostSaveDTO postDTO)
     {
-        if (id != postDTO.Id)
-        {
-            NotifyError("Os ids informados não são iguais!");
-            return CustomResponse();
-        }
 
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
         var post = await GetPostByIdAsync(id);
         if (post == null) return NotFound();
 
-        post.UpdatedAt = DateTime.Now;
+        //post.UpdatedAt = DateTime.Now;
         post.Title = postDTO.Title;
         post.Content = postDTO.Content;
 
@@ -75,7 +70,7 @@ public class PostController : MainController
     }
 
     [HttpDelete("Delete/{id:guid}")]
-    public async Task<ActionResult<PostDTO>> DeleteAsync(Guid id)
+    public async Task<IActionResult> DeleteAsync(Guid id)
     {
         var post = await GetPostByIdAsync(id);
         if (post == null) return NotFound();
