@@ -17,9 +17,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"var res = pm.response.text;\r",
-									"pm.environment.set(\"token\", res);\r",
-									""
+									"var res = pm.response.text()\r",
+									"pm.environment.set(\"token\", res);"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -31,7 +30,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"name\": \"user\",\r\n  \"password\": \"Teste123!\",\r\n  \"confirmPassword\": \"Teste123!\"\r\n}",
+							"raw": "{\r\n  \"email\": \"user2@example.com\",\r\n  \"password\": \"Teste@123\",\r\n  \"confirmPassword\": \"Teste@123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -39,13 +38,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/accounts/register",
+							"raw": "{{baseUrl}}/api/auth/register",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
-								"accounts",
+								"auth",
 								"register"
 							]
 						}
@@ -59,7 +58,11 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"var res = pm.response.text;\r",
+									"//var res = pm.response.json;\r",
+									"//var jsonData = JSON.parse(res);\r",
+									"//pm.environment.set(\"token\", res);\r",
+									"\r",
+									"var res = pm.response.text()\r",
 									"pm.environment.set(\"token\", res);"
 								],
 								"type": "text/javascript",
@@ -72,7 +75,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"Teste123@\"\r\n}",
+							"raw": "{\r\n  \"email\": \"user1@example.com\",\r\n  \"password\": \"Teste@123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -80,13 +83,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/accounts/login",
+							"raw": "{{baseUrl}}/api/auth/login",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
-								"accounts",
+								"auth",
 								"login"
 							]
 						}
@@ -99,7 +102,45 @@
 			"name": "Post",
 			"item": [
 				{
-					"name": "Create Post",
+					"name": "Create Post - 201",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Test 1\",\n  \"content\": \"First post\",\n  \"authorId\": \"45892055-7497-4ba9-b4c1-6a6eaf76267d\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/posts/Add",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"Add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Post - 401",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -129,6 +170,16 @@
 				{
 					"name": "Update Post",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -138,10 +189,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Post 1.0\",\n  \"content\": \"\"\n}"
+							"raw": "{\n  \"title\": \"Test 3\",\n  \"content\": \"First post.\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/posts/Update/72ed7f3d-fcb2-43ce-b831-0854840f1be2",
+							"raw": "{{baseUrl}}/api/posts/Update/751f6920-28a5-4057-8fa3-7321480a8f48",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -149,7 +200,7 @@
 								"api",
 								"posts",
 								"Update",
-								"72ed7f3d-fcb2-43ce-b831-0854840f1be2"
+								"751f6920-28a5-4057-8fa3-7321480a8f48"
 							]
 						}
 					},
@@ -158,10 +209,20 @@
 				{
 					"name": "Delete Post",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/posts/Delete/:id",
+							"raw": "{{baseUrl}}/api/posts/Delete/751f6920-28a5-4057-8fa3-7321480a8f48",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -169,14 +230,7 @@
 								"api",
 								"posts",
 								"Delete",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "",
-									"description": "Post ID"
-								}
+								"751f6920-28a5-4057-8fa3-7321480a8f48"
 							]
 						}
 					},
@@ -185,6 +239,9 @@
 				{
 					"name": "Get Posts",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -206,7 +263,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/posts/GetById/72ed7f3d-fcb2-43ce-b831-0854840f1be2",
+							"raw": "{{baseUrl}}/api/posts/GetById/751f6920-28a5-4057-8fa3-7321480a8f48",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -214,7 +271,7 @@
 								"api",
 								"posts",
 								"GetById",
-								"72ed7f3d-fcb2-43ce-b831-0854840f1be2"
+								"751f6920-28a5-4057-8fa3-7321480a8f48"
 							]
 						}
 					},
@@ -226,7 +283,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/posts/GetByAuthorId/:id",
+							"raw": "{{baseUrl}}/api/posts/GetByAuthorId/45892055-7497-4ba9-b4c1-6a6eaf76267d",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -234,14 +291,7 @@
 								"api",
 								"posts",
 								"GetByAuthorId",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "",
-									"description": "Author ID"
-								}
+								"45892055-7497-4ba9-b4c1-6a6eaf76267d"
 							]
 						}
 					},
@@ -253,7 +303,44 @@
 			"name": "Comment",
 			"item": [
 				{
-					"name": "Create Comment",
+					"name": "Create Comment - 201",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"postId\": \"751f6920-28a5-4057-8fa3-7321480a8f48\",\n  \"content\": \"comentario 2.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/comments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Comment - 401",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -264,7 +351,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"postId\": \"72ed7f3d-fcb2-43ce-b831-0854840f1be2\",\n  \"content\": \"Usando o dotnet 2 xdfsxdfsdf.\",\n  \"authorId\": \"921b34b6-c059-4d7d-9a5e-08d0ed3fe87f\"\n}"
+							"raw": "{\n  \"postId\": \"45892055-7497-4ba9-b4c1-6a6eaf76267d\",\n  \"content\": \"Usando o dotnet 8 xdfsxdfsdf.\",\n  \"authorId\": \"3402dc40-0318-46ee-aaed-f3f1cc77ae15\"\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/comments",
@@ -282,6 +369,16 @@
 				{
 					"name": "Update Comment",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -291,10 +388,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"postId\": \"72ed7f3d-fcb2-43ce-b831-0854840f1be2\",\n    \"content\": \"Usando o dotnet 8\"\n}"
+							"raw": "{\n    \"content\": \"Usando o dotnet 8 - 2\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/comments/Update/fb92ae63-9d44-4ccc-ace5-95f8cb815bac",
+							"raw": "{{baseUrl}}/api/comments/Update/8b6aa9d6-bdce-4830-bd4f-1999d41b0de3",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -302,7 +399,7 @@
 								"api",
 								"comments",
 								"Update",
-								"fb92ae63-9d44-4ccc-ace5-95f8cb815bac"
+								"8b6aa9d6-bdce-4830-bd4f-1999d41b0de3"
 							]
 						}
 					},
@@ -314,7 +411,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/comments/GetByPostId/:id",
+							"raw": "{{baseUrl}}/api/comments/GetByPostId/751f6920-28a5-4057-8fa3-7321480a8f48",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -322,14 +419,7 @@
 								"api",
 								"comments",
 								"GetByPostId",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "",
-									"description": "Post ID"
-								}
+								"751f6920-28a5-4057-8fa3-7321480a8f48"
 							]
 						}
 					},
@@ -338,10 +428,20 @@
 				{
 					"name": "Delete Comment",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/comments/Delete/:id",
+							"raw": "{{baseUrl}}/api/comments/Delete/47f144a9-a922-439c-b0d9-6594770e80ee",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -349,14 +449,7 @@
 								"api",
 								"comments",
 								"Delete",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "",
-									"description": "Comment ID"
-								}
+								"47f144a9-a922-439c-b0d9-6594770e80ee"
 							]
 						}
 					},

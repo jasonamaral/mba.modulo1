@@ -2,11 +2,13 @@
 using mba.modulo1.blog.domain.Entities;
 using MBA.Modulo1.Blog.API.DTO;
 using MBA.Modulo1.Blog.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace MBA.Modulo1.Blog.API.Controllers;
 
+[Authorize]
 [Route("api/comments")]
 public class CommentController : MainController
 {
@@ -21,11 +23,11 @@ public class CommentController : MainController
         _mapper = mapper;
     }
 
+    [AllowAnonymous]
     [HttpGet("GetByPostId/{id:guid}")]
     public async Task<IEnumerable<CommentDTO>> GetByIdAsync(Guid id)
     {
-
-       var comments = _mapper.Map<IEnumerable<CommentDTO>>(await _commentRepository.GetCommentsByPostAsync(id));
+        var comments = _mapper.Map<IEnumerable<CommentDTO>>(await _commentRepository.GetCommentsByPostAsync(id));
 
         return comments;
     }
@@ -34,22 +36,24 @@ public class CommentController : MainController
     public async Task<ActionResult<CommentSaveDTO>> Add(CommentSaveDTO commentDTO)
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
-        
+
         var comment = _mapper.Map<Comment>(commentDTO);
         comment.Id = Guid.NewGuid();  // Ensure a new ID is generated
+        comment.AuthorId = GetLoggedUser();
 
         await _commentRepository.AddAsync(comment);
         return CustomResponse(HttpStatusCode.Created, commentDTO);
     }
 
     [HttpPut("Update/{id:guid}")]
-    public async Task<IActionResult> UpdateAsync(Guid id, CommentSaveDTO commentDTO)
+    public async Task<IActionResult> UpdateAsync(Guid id, CommentUpdateDTO commentDTO)
     {
-
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
         var comment = await GetCommentByIdAsync(id);
         if (comment == null) return NotFound();
+
+        if (!UserHasPermition(comment.AuthorId)) return Forbid();
 
         comment.UpdatedAt = DateTime.Now;
         comment.Content = commentDTO.Content;
@@ -63,6 +67,7 @@ public class CommentController : MainController
     {
         var comment = await GetCommentByIdAsync(id);
         if (comment == null) return NotFound();
+        if (!UserHasPermition(comment.AuthorId)) return Forbid();
 
         await _commentService.DeleteAsync(id);
         return CustomResponse(HttpStatusCode.NoContent);

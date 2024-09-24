@@ -64,8 +64,8 @@ public static class DbMigrationHelpers
 
         await context.SaveChangesAsync();
 
-        var adminEmail = "admin@admin.com";
-        var adminPassword = "Teste123";
+        var adminEmail = "admin@example.com";
+        var adminPassword = "Teste@123";
         var passwordHasher = new PasswordHasher<IdentityUser>();
 
         var adminUser = new ApplicationUser

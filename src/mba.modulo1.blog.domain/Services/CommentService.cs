@@ -29,13 +29,19 @@ public class CommentService : BaseService, ICommentService
     public async Task DeleteAsync(Guid id)
     {
         var comment = await _commentRepository.GetByIdAsync(id);
-        if (comment != null)
+        if (comment == null)
         {
             Notify("Comentário não encontrado!");
             return;
         }
 
         await _commentRepository.DeleteByIdAsync(id);
+    }
+
+    public async Task DeleteCommentsbyPostIdAsync(Guid id)
+    {
+        IEnumerable<Comment> comments = await _commentRepository.GetCommentsByPostAsync(id);
+        _commentRepository.RemoveRange(comments);
     }
 
     public void Dispose() => _commentRepository.Dispose();

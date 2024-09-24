@@ -9,4 +9,6 @@ public interface ICommentService : IDisposable
     Task UpdateAsync(Comment comment);
 
     Task DeleteAsync(Guid id);
+
+    Task DeleteCommentsbyPostIdAsync(Guid id);
 }

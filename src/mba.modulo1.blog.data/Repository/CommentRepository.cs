@@ -14,4 +14,9 @@ public class CommentRepository : Repository<Comment>, ICommnetRepository
     {
         return await Db.Comments.AsNoTracking().Where(j => j.PostId == postId).ToListAsync();
     }
+
+    public void RemoveRange(IEnumerable<Comment> comments)
+    {
+        Db.Comments.RemoveRange(comments);
+    }
 }
