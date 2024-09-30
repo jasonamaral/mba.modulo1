@@ -1,84 +1,164 @@
 ﻿@model MBA.Modulo1.Blog.DTO.PostDTO
 
 <div class="container mt-5">
+    <!-- Post Section -->
     <div class="row">
         <div class="col-md-12">
-            <!-- Post Content -->
-            <h1>@Model.Title</h1>
-            <p class="text-muted">
-                Postado por @Model.UserName em @Model.UpdatedAt.ToString()
-            </p>
-            <hr />
-            <div class="post-content">
-                @*                 @if (!string.IsNullOrEmpty(Model.Post.ImageUrl))
-                {
-                <img src="@Model.Post.ImageUrl" class="img-fluid mb-4" alt="@Model.Post.Title" />
-                } *@
-                <p>@Model.Content</p>
-            </div>
-
-            <!-- Comments Section -->
-            <div class="comments-section mt-5">
-                <h4>Comentários</h4>
-                <hr />
-                @if (Model.Comments!.Any())
-                {
-                    <ul class="list-unstyled">
-                        @foreach (var comment in Model.Comments!)
-                        {
-                            <li class="media mb-3">
-                                <div class="media-body">
-                                    <h5 class="mt-0 mb-1">@comment.UserName</h5>
-                                    <small class="text-muted">@comment.UpdatedAt.ToString()</small>
-                                    <p>@comment.Content</p>
-                                    @if ((bool)TempData["IsAuthenticated"]! && comment.AuthorId.ToString() == TempData["userId"]!.ToString())
-                                    {
-                                        <a href="@Url.Action("EditComment", "Comments", new { id = comment.Id })" class="link-opacity-50-hover">Editar</a>
-                                    }
-                                </div>
-                            </li>
-
-                        }
-                    </ul>
-                }
-                else
-                {
-                    <p>Sem comentários por enquanto.</p>
-                }
-            </div>
-
-            <!-- Add Comment Section -->
-            <div class="add-comment mt-5">
-                <h4>Comentar</h4>
-                <form asp-action="AddComment" asp-controller="Comments" method="post">
-                    <input type="hidden" name="PostId" value="@Model.Id" />
-                    <div class="form-group">
-                        <textarea class="form-control" id="Content" name="Content" rows="4" required></textarea>
+            <div class="card shadow-lg mb-4">
+                <div class="card-body">
+                    <h1 class="card-title display-4">@Model.Title</h1>
+                    <p class="text-muted">
+                        <i class="bi bi-person"></i> <strong>@Model.UserName</strong>
+                        <span class="mx-2">|</span>
+                        <i class="bi bi-calendar"></i> @Model.UpdatedAt.ToString()
+                    </p>
+                    <hr />
+                    <div class="post-content fs-5">
+                        <p>@Model.Content</p>
                     </div>
-                    @if ((bool)TempData["IsAuthenticated"]!)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4>Comentários</h4>
+                </div>
+                <div class="card-body">
+                    @if (Model.Comments!.Any())
                     {
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <ul class="list-unstyled">
+                            @foreach (var comment in Model.Comments!)
+                            {
+                                <li class="media mb-4 p-3 border rounded bg-light shadow-sm">
+                                    <div class="media-body">
+                                        <h5 class="fw-bold text-primary">@comment.UserName</h5>
+                                        <small class="text-muted">
+                                            <i class="bi bi-clock"></i> @comment.UpdatedAt.ToString()
+                                        </small>
+                                        <p class="mt-2">@comment.Content</p>
+                                        @if ((bool)TempData["IsAuthenticated"]! && comment.AuthorId.ToString() == TempData["userId"]!.ToString())
+                                        {
+                                            <div class="d-flex">
+                                                <a href="@Url.Action("EditComment", "Comments", new { id = comment.Id })" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                                                <a href="#" data-id="@comment.Id" class="btn btn-sm btn-outline-danger delete-comment-btn" data-bs-toggle="modal" data-bs-target="#deleteModal">Apagar</a>
+                                            </div>
+                                        }
+                                    </div>
+                                </li>
+                            }
+                        </ul>
                     }
                     else
                     {
-                        <p>Faça login para postar uma mensagem.</p>
+                        <p class="text-muted">Nenhum comentário até o momento.</p>
                     }
-
-                </form>
+                </div>
             </div>
+        </div>
+    </div>
 
-            <a href="@Url.Action("Index", "Home")" class="btn btn-secondary mt-3">Home</a>
+    <!-- Add Comment Section -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="card shadow-lg">
+                <div class="card-header bg-success text-white">
+                    <h4>Adicionar Comentário</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="AddComment" asp-controller="Comments" method="post">
+                        <input type="hidden" name="PostId" value="@Model.Id" />
+                        <div class="form-group mb-3">
+                            <textarea class="form-control" id="Content" name="Content" rows="4" placeholder="Escreva seu comentário aqui..." required></textarea>
+                        </div>
+                        @if ((bool)TempData["IsAuthenticated"]!)
+                        {
+                            <button type="submit" class="btn btn-success">Enviar Comentário</button>
+                        }
+                        else
+                        {
+                            <p class="text-danger">Você precisa fazer login para comentar.</p>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Voltar para Home</a>
         </div>
     </div>
 </div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmar Exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Tem certeza de que deseja apagar este comentário?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form id="deleteForm" method="post" action="">
+                    <input type="hidden" name="id" id="commentId" value="">
+                    <button type="submit" class="btn btn-danger">Apagar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.delete-comment-btn').on('click', function () {
+            var commentId = $(this).data('id');
+            $('#commentId').val(commentId);
+            var deleteUrl = '@Url.Action("DeleteComment", "Comments", new { id = "__id__" })'.replace('__id__', commentId);
+            $('#deleteForm').attr('action', deleteUrl);
+        });
+    });
+</script>
+
 <style>
+    .post-content {
+        font-size: 1.1em;
+        line-height: 1.6;
+    }
+
+    .media {
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 10px;
+    }
 
     ul.list-unstyled li:nth-child(even) {
-        background-color: #f8f9fa; /* light background for even comments */
+        background-color: #f1f3f5;
     }
 
     ul.list-unstyled li:nth-child(odd) {
-        background-color: #ffffff; /* white background for odd comments */
+        background-color: #ffffff;
+    }
+
+    .link-opacity-50-hover {
+        transition: color 0.3s ease;
+    }
+
+        .link-opacity-50-hover:hover {
+            color: #007bff;
+        }
+
+    .btn-outline-primary:hover, .btn-outline-danger:hover {
+        background-color: #f8f9fa;
+        color: #000;
     }
 </style>
