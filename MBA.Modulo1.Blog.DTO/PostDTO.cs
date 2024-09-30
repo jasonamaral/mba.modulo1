@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MBA.Modulo1.Blog.API.DTO;
+namespace MBA.Modulo1.Blog.DTO;
 
 public class PostDTO
 {
@@ -17,6 +17,7 @@ public class PostDTO
 
     [Required(ErrorMessage = "O campo {0} é obrigatório")]
     public Guid AuthorId { get; set; }
+    public string UserName { get; set; }
 
     public IEnumerable<CommentDTO>? Comments { get; set; }
 }

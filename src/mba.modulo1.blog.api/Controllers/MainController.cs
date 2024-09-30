@@ -1,5 +1,4 @@
 ﻿using MBA.Modulo1.Blog.Domain.Interfaces;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Net;
@@ -8,7 +7,7 @@ using System.Security.Claims;
 namespace MBA.Modulo1.Blog.API.Controllers;
 
 [ApiController]
-public abstract class MainController : ControllerBase
+public abstract class MainController : Controller
 {
     private readonly INotifier _notifier;
 
@@ -61,6 +60,7 @@ public abstract class MainController : ControllerBase
     {
         return User!.FindFirstValue(ClaimTypes.NameIdentifier)!;
     }
+
     protected bool UserHasPermition(Guid userId)
     {
         var role = User.FindFirstValue(ClaimTypes.Role);
@@ -70,6 +70,5 @@ public abstract class MainController : ControllerBase
         if (userId.ToString() == GetLoggedUser()) return true;
 
         return false;
-
     }
 }

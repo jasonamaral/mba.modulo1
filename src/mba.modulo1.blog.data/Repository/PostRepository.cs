@@ -19,11 +19,29 @@ public class PostRepository : Repository<Post>, IPostRepository
         .ToListAsync();
     }
 
-    public async override Task<Post> GetByIdAsync(Guid id)
-    {
-        return await Db.Posts.AsNoTracking()
-        .Include(j => j.Comments)
-        .FirstOrDefaultAsync(j => j.Id == id);
+    public override async Task<Post> GetByIdAsync(Guid id)
+        => await Db.Posts.AsNoTracking()
+                .Include(post => post.User) // Include User for the Post itself
+                .Include(post => post.Comments) // Include Comments for the Post
+                    .ThenInclude(comment => comment.User) // Include User for each Comment
+                .Where(post => post.Id == id)
+                .Select(post => new Post
+                {
+                    Id = post.Id,
+                    Title = post.Title,
+                    Content = post.Content,
+                    User = post.User, // User of the post
+                    Comments = post.Comments
+                                 .OrderByDescending(c => c.CreatedAt)
+                                 .ToList() // Ensure comments are ordered within the projection
+                })
+                .FirstOrDefaultAsync();
 
+    public override async Task<List<Post>> GetAllAsync()
+    {
+        //return await DbSet.AsNoTracking().ToListAsync();
+
+        return await Db.Posts.AsNoTracking()
+        .Include(j => j.User).ToListAsync();
     }
 }

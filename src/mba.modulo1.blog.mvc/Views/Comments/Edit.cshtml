@@ -1,0 +1,15 @@
+﻿@model MBA.Modulo1.Blog.DTO.CommentUpdateDTO
+
+<div class="container mt-5">
+    <h2>Editar comentário</h2>
+
+    <form asp-action="EditComment" asp-controller="Comments" method="post">
+
+        <div class="form-group">
+            <textarea class="form-control" id="Content" name="Content" rows="4" required>@Model.Content</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+
+    </form>
+</div>

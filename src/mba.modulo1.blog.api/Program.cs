@@ -1,7 +1,8 @@
 using MBA.Modulo1.Blog.API.Config;
 using MBA.Modulo1.Blog.API.Data;
-using MBA.Modulo1.Blog.API.DTO;
 using MBA.Modulo1.Blog.Data.Context;
+using MBA.Modulo1.Blog.DTO;
+using MBA.Modulo1.Blog.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -53,13 +54,6 @@ builder.Services.AddSwaggerGen(c =>
     c.CustomSchemaIds(type => type.ToString());
 });
 
-
-
-
-
-
-
-
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<BlogDbContext>(opt => opt.UseSqlServer(connectionString));
 builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(connectionString));
@@ -93,7 +87,6 @@ builder.Services.AddAuthentication(opt =>
         ValidAudience = jwtSettings.Audience,
         ValidIssuer = jwtSettings.Issuer,
     };
-
 });
 
 var app = builder.Build();

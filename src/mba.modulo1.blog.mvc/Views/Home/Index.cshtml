@@ -1,8 +1,57 @@
-﻿@{
+﻿@model IEnumerable<MBA.Modulo1.Blog.DTO.PostDTO>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <div class="row">
+        @foreach (var post in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    @* <img src="@post.ImageUrl" class="card-img-top" alt="@post.Title"> *@
+                    <div class="card-body">
+                        <h5 class="card-title">@post.Title</h5>
+                        <p class="card-text">
+                            @{
+                                var contentPreview = post.Content?.Length > 100
+                                ? post.Content.Substring(0, 100) + "..."
+                                : post.Content;
+                            }
+                            @contentPreview
+                        </p>
+                        <a href="@Url.Action("Details", "Comments", new { id = post.Id })" class="btn btn-primary">Leia mais</a>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Postado por @post.UserName on @post.CreatedAt.ToString()</small>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
+
+<style>
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+</style>
+<script>
+    $(document).ready(function () {
+        $("#loadMore").click(function () {
+            $.ajax({
+                url: '/Blog/LoadMore',
+                type: 'GET',
+                success: function (data) {
+                    $('#postContainer').append(data);
+                }
+            });
+        });
+    });
+</script>

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using mba.modulo1.blog.domain.Entities;
-using MBA.Modulo1.Blog.API.DTO;
+using MBA.Modulo1.Blog.DTO;
 
-namespace MBA.Modulo1.Blog.API.Config;
+namespace MBA.Modulo1.Blog.Data.Mappers;
 
 public class AutomapperConfig : Profile
 {

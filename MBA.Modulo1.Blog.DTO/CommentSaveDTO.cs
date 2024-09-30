@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MBA.Modulo1.Blog.API.DTO;
+namespace MBA.Modulo1.Blog.DTO;
 
 public class CommentSaveDTO
 {

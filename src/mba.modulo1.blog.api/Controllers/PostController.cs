@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using mba.modulo1.blog.domain.Entities;
-using MBA.Modulo1.Blog.API.DTO;
 using MBA.Modulo1.Blog.Domain.Interfaces;
-using MBA.Modulo1.Blog.Domain.Services;
+using MBA.Modulo1.Blog.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -18,10 +17,10 @@ public class PostController : MainController
     private readonly IPostRepository _postRepository;
     private readonly IMapper _mapper;
 
-    public PostController(IPostService postService, 
-        ICommentService commentService, 
-        IPostRepository postRepository, 
-        IMapper mapper, 
+    public PostController(IPostService postService,
+        ICommentService commentService,
+        IPostRepository postRepository,
+        IMapper mapper,
         INotifier notifier) : base(notifier)
     {
         _postService = postService;

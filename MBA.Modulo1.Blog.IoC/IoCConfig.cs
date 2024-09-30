@@ -3,8 +3,9 @@ using MBA.Modulo1.Blog.Data.Repository;
 using MBA.Modulo1.Blog.Domain.Interfaces;
 using MBA.Modulo1.Blog.Domain.Notifications;
 using MBA.Modulo1.Blog.Domain.Services;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace MBA.Modulo1.Blog.API.Config;
+namespace MBA.Modulo1.Blog.IoC;
 
 public static class IoCConfig
 {

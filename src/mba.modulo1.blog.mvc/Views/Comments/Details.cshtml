@@ -1,0 +1,84 @@
+﻿@model MBA.Modulo1.Blog.DTO.PostDTO
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Post Content -->
+            <h1>@Model.Title</h1>
+            <p class="text-muted">
+                Postado por @Model.UserName em @Model.UpdatedAt.ToString()
+            </p>
+            <hr />
+            <div class="post-content">
+                @*                 @if (!string.IsNullOrEmpty(Model.Post.ImageUrl))
+                {
+                <img src="@Model.Post.ImageUrl" class="img-fluid mb-4" alt="@Model.Post.Title" />
+                } *@
+                <p>@Model.Content</p>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="comments-section mt-5">
+                <h4>Comentários</h4>
+                <hr />
+                @if (Model.Comments!.Any())
+                {
+                    <ul class="list-unstyled">
+                        @foreach (var comment in Model.Comments!)
+                        {
+                            <li class="media mb-3">
+                                <div class="media-body">
+                                    <h5 class="mt-0 mb-1">@comment.UserName</h5>
+                                    <small class="text-muted">@comment.UpdatedAt.ToString()</small>
+                                    <p>@comment.Content</p>
+                                    @if ((bool)TempData["IsAuthenticated"]! && comment.AuthorId.ToString() == TempData["userId"]!.ToString())
+                                    {
+                                        <a href="@Url.Action("EditComment", "Comments", new { id = comment.Id })" class="link-opacity-50-hover">Editar</a>
+                                    }
+                                </div>
+                            </li>
+
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>Sem comentários por enquanto.</p>
+                }
+            </div>
+
+            <!-- Add Comment Section -->
+            <div class="add-comment mt-5">
+                <h4>Comentar</h4>
+                <form asp-action="AddComment" asp-controller="Comments" method="post">
+                    <input type="hidden" name="PostId" value="@Model.Id" />
+                    <div class="form-group">
+                        <textarea class="form-control" id="Content" name="Content" rows="4" required></textarea>
+                    </div>
+                    @if ((bool)TempData["IsAuthenticated"]!)
+                    {
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    }
+                    else
+                    {
+                        <p>Faça login para postar uma mensagem.</p>
+                    }
+
+                </form>
+            </div>
+
+            <a href="@Url.Action("Index", "Home")" class="btn btn-secondary mt-3">Home</a>
+
+        </div>
+    </div>
+</div>
+<style>
+
+    ul.list-unstyled li:nth-child(even) {
+        background-color: #f8f9fa; /* light background for even comments */
+    }
+
+    ul.list-unstyled li:nth-child(odd) {
+        background-color: #ffffff; /* white background for odd comments */
+    }
+</style>

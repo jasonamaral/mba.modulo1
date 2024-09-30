@@ -1,4 +1,4 @@
-﻿using MBA.Modulo1.Blog.API.DTO;
+﻿using MBA.Modulo1.Blog.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
