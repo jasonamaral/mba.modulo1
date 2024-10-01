@@ -37,7 +37,7 @@
 
  Desenvolvimento da Interface Web (MVC)
 - Criar Views para Listagem de Posts: OK
-	Desenvolver a view para listar todos os posts.
+	Desenvolver a view para listar todos os posts. ok
 
 - Criar Views para Criação de Posts: 
 	Desenvolver a view para criar novos posts.
@@ -49,18 +49,18 @@
 	Desenvolver a view para excluir posts.
 
 - Criar Views para Visualização de Posts: 
-	Desenvolver a view para visualizar um post específico.
+	Desenvolver a view para visualizar um post específico. ok
 
 - Criar Views para Gerenciamento de Comentários: 
-	Desenvolver views para criar, editar, visualizar e excluir comentários em posts.
+	Desenvolver views para criar, editar, visualizar e excluir comentários em posts. ok
 
 
  Autenticação e Autorização
 - Implementar Autenticação: 
-	Configurar autenticação usando Identity.
+	Configurar autenticação usando Identity. ok
 	
 - Implementar Autorização: 
-	Implementar autorização para garantir que somente usuários autenticados possam criar, editar e excluir posts e comentários.
+	Implementar autorização para garantir que somente usuários autenticados possam criar, editar e excluir posts e comentários. ok
 	
 - Criar Roles de Usuário: 
 	Definir e implementar diferentes níveis de acesso (e.g., Administrador, Usuário). OK
