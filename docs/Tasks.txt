@@ -36,7 +36,7 @@
 	Desenvolver endpoints GET, POST, PUT e DELETE para comentários. OK
 
  Desenvolvimento da Interface Web (MVC)
-- Criar Views para Listagem de Posts: 
+- Criar Views para Listagem de Posts: OK
 	Desenvolver a view para listar todos os posts.
 
 - Criar Views para Criação de Posts: 
