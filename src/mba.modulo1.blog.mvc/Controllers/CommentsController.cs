@@ -7,7 +7,6 @@ using MBA.Modulo1.Blog.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
 using System.Security.Claims;
 
 namespace MBA.Modulo1.Blog.MVC.Controllers;
@@ -43,9 +42,9 @@ public class CommentsController : Controller
         var post = _mapper.Map<PostDTO>(await _postRepository.GetByIdAsync(id));
         if (post == null)
         {
-            return NotFound();
+            return View("NotFound");
         }
-        IsUserAuthenticated();
+        LoadTempData();
         return View(post);
     }
 
@@ -70,7 +69,7 @@ public class CommentsController : Controller
         var comment = await _context.Comments.FindAsync(id);
         if (comment == null)
         {
-            return NotFound();
+            return View("NotFound");
         }
 
         if (comment.AuthorId != GetLoggedUser())
@@ -89,7 +88,7 @@ public class CommentsController : Controller
         var existingComment = await _context.Comments.FindAsync(id);
         if (existingComment == null)
         {
-            return NotFound();
+            return View("NotFound");
         }
 
         if (existingComment.AuthorId != GetLoggedUser())
@@ -123,7 +122,7 @@ public class CommentsController : Controller
     {
         var existingComment = await _context.Comments.FindAsync(id);
 
-        if (existingComment == null) return NotFound();
+        if (existingComment == null) return View("NotFound");
         if (existingComment.AuthorId != GetLoggedUser())
         {
             return Forbid();
@@ -132,15 +131,23 @@ public class CommentsController : Controller
         await _commentService.DeleteAsync(id);
 
         return RedirectToAction("Details", new { id = existingComment.PostId });
-
-
     }
-    private void IsUserAuthenticated()
-    {
-        TempData["IsAuthenticated"] = User?.Identity?.IsAuthenticated;
-        TempData["userId"] = GetLoggedUser();
 
-        //return User?.Identity?.IsAuthenticated == true;
+    private void LoadTempData()
+    {
+
+        TempData["userId"] = GetLoggedUser();
+        TempData["IsAuthenticated"] = User?.Identity?.IsAuthenticated;
+
+        if (User?.Identity?.IsAuthenticated == true)
+        {
+            var role = User.FindFirstValue(ClaimTypes.Role);
+            TempData["IsAdmin"] = role == "Admin";
+        }
+        else
+        {
+            TempData["IsAdmin"] = false;
+        }
     }
 
     protected string GetLoggedUser()
