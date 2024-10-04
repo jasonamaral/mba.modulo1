@@ -7,7 +7,6 @@ using MBA.Modulo1.Blog.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -50,7 +49,6 @@ public class HomeController : Controller
             post.Id = Guid.NewGuid();  // Ensure a new ID is generated
             post.AuthorId = GetLoggedUser();
             await _postRepository.AddAsync(post);
-
         }
         return RedirectToAction("Index");
     }
@@ -98,7 +96,7 @@ public class HomeController : Controller
     {
         var existingPost = await _context.Posts.FindAsync(id);
 
-        if (existingPost == null) return View("NotFound"); 
+        if (existingPost == null) return View("NotFound");
         if (existingPost.AuthorId != GetLoggedUser())
         {
             return Forbid();
@@ -111,7 +109,6 @@ public class HomeController : Controller
 
     private void LoadTempData()
     {
-
         TempData["userId"] = GetLoggedUser();
         TempData["IsAuthenticated"] = User?.Identity?.IsAuthenticated;
 

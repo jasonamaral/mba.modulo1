@@ -132,7 +132,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <form id="deleteForm" method="post" action="">
-                            <input type="hidden" name="id" id="postId" value="">
+                            <input type="hidden" name="postId" id="postId" value="">
                             <button type="submit" class="btn btn-danger">Apagar</button>
                         </form>
                     </div>
@@ -160,7 +160,8 @@
 
             $('.delete-post-btn').on('click', function () {
                 let postId = $(this).data('id');
-                $('#postId').val(postId);
+                $("#deleteForm input[name='id']").val(postId);
+                //$('#postId').val(postId);
                 let deleteUrl = '@Url.Action("DeletePost", "Home", new { id = "__id__" })'.replace('__id__', postId);
                 $('#deleteForm').attr('action', deleteUrl);
             });

@@ -1,5 +1,4 @@
 ﻿using mba.modulo1.blog.domain.Entities;
-using MBA.Modulo1.Blog.API.Data;
 using MBA.Modulo1.Blog.Data.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -33,7 +32,7 @@ public static class DbMigrationHelpers
         if (env.IsDevelopment())
         {
             await context.Database.MigrateAsync();
-           // await contextId.Database.MigrateAsync();
+            // await contextId.Database.MigrateAsync();
 
             await EnsureSeedAdmin(context);
         }

@@ -20,7 +20,7 @@ public class PostConfig : IEntityTypeConfiguration<Post>
             .HasMany(j => j.Comments)
             .WithOne(j => j.Post)
             .HasForeignKey(j => j.PostId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(j => j.User).WithMany(j => j.Posts).HasForeignKey(j => j.AuthorId);
     }
