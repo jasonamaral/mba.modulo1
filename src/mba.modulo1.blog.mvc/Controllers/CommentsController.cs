@@ -49,6 +49,7 @@ public class CommentsController : Controller
     }
 
     [Authorize(Roles = "Admin,User")]
+    [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddComment(CommentSaveDTO commentDTO)
     {
@@ -60,7 +61,9 @@ public class CommentsController : Controller
             await _commentRepository.AddAsync(comment);
             return RedirectToAction("Details", new { id = comment.PostId });
         }
-        return View();
+        LoadTempData();
+        var post = _mapper.Map<PostDTO>(await _postRepository.GetByIdAsync(commentDTO.PostId));
+        return View("Details", post);
     }
 
     [Authorize(Roles = "Admin,User")]
@@ -135,7 +138,6 @@ public class CommentsController : Controller
 
     private void LoadTempData()
     {
-
         TempData["userId"] = GetLoggedUser();
         TempData["IsAuthenticated"] = User?.Identity?.IsAuthenticated;
 

@@ -41,7 +41,7 @@
                                             <i class="bi bi-clock"></i> @comment.UpdatedAt.ToString()
                                         </small>
                                         <p class="mt-2">@comment.Content</p>
-                                        @if ((bool)TempData["IsAuthenticated"]! && (comment.AuthorId.ToString() == TempData["userId"]!.ToString() || (bool)TempData["IsAuthenticated"]!))
+                                        @if ((bool)TempData["IsAuthenticated"]! && (comment.AuthorId.ToString() == TempData["userId"]!.ToString() || (bool)TempData["IsAdmin"]!))
                                         {
                                             <div class="d-flex">
                                                 <a href="@Url.Action("EditComment", "Comments", new { id = comment.Id })" class="btn btn-sm btn-outline-primary me-2">Editar</a>
@@ -64,14 +64,16 @@
 
     <!-- Add Section -->
     <div id="floatingBox" class="floating-box card shadow-lg">
-        <div id="dragHandle" class="card-header bg-success text-white">
-            <h4>Adicionar Comentário</h4>
+        <div id="dragHandle" class="card-header bg-dark text-white">
+            <h4>Novo Comentário</h4>
         </div>
         <div class="card-body">
-            <form asp-action="AddComment" asp-controller="Comments" method="post">
+            <form asp-action="AddComment" asp-controller="Comments" method="post" id="formAddComment">
                 <input type="hidden" name="PostId" value="@Model.Id" />
                 <div class="form-group mb-3">
-                    <textarea class="form-control" id="Content" name="Content" rows="4" placeholder="Escreva seu comentário aqui..." required></textarea>
+                    <textarea class="form-control" id="Content" name="Content" rows="4" placeholder="Escreva seu comentário aqui..." maxlength="1000" required></textarea>
+                    @Html.ValidationMessageFor(j => j.Content)
+                    <p id="charCount">0 / 1000</p>
                 </div>
                 @if ((bool)TempData["IsAuthenticated"]!)
                 {
@@ -119,7 +121,15 @@
 
 @section Scripts {
 <script>
+    document.getElementById('Content').addEventListener('input', function () {
+        const maxLength = this.getAttribute('maxlength');
+        const currentLength = this.value.length;
+        document.getElementById('charCount').innerText = `${currentLength} / ${maxLength}`;
+    });
+
     $(document).ready(function () {
+        $("#formAddComment").validate();
+
         $('.delete-comment-btn').on('click', function () {
             let commentId = $(this).data('id');
             $('#commentId').val(commentId);

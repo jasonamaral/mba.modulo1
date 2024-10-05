@@ -45,5 +45,4 @@ public class CommentService : BaseService, ICommentService
     }
 
     public void Dispose() => _commentRepository.Dispose();
-
 }

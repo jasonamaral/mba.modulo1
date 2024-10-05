@@ -13,6 +13,5 @@ public class CommentValidation : AbstractValidator<Comment>
             .Length(2, 500).WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLenght} caracteres");
 
         RuleFor(j => j.PostId).NotEmpty().WithMessage("O campo {PropertyName} precisa ser preechido");
-
     }
 }

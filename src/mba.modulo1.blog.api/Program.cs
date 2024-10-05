@@ -1,6 +1,6 @@
-using MBA.Modulo1.Blog.API.Config;
 using MBA.Modulo1.Blog.API.Data;
 using MBA.Modulo1.Blog.Data.Context;
+using MBA.Modulo1.Blog.Data.EntityConfig;
 using MBA.Modulo1.Blog.DTO;
 using MBA.Modulo1.Blog.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

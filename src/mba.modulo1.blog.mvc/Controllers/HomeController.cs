@@ -49,8 +49,13 @@ public class HomeController : Controller
             post.Id = Guid.NewGuid();  // Ensure a new ID is generated
             post.AuthorId = GetLoggedUser();
             await _postRepository.AddAsync(post);
+            return RedirectToAction("Index");
         }
-        return RedirectToAction("Index");
+        LoadTempData();
+
+        var posts = await _postRepository.GetAllAsync();
+        var postDTOs = _mapper.Map<IEnumerable<PostDTO>>(posts);
+        return View("Index", postDTOs);
     }
 
     [Authorize(Roles = "Admin,User")]
@@ -126,11 +131,6 @@ public class HomeController : Controller
     protected string GetLoggedUser()
     {
         return User!.FindFirstValue(ClaimTypes.NameIdentifier)!;
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

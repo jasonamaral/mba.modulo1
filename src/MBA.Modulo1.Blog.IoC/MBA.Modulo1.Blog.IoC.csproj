@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\mba.modulo1.blog.data\MBA.Modulo1.Blog.Data.csproj" />
+    <ProjectReference Include="..\mba.modulo1.blog.data\MBA.Modulo1.Blog.Data.csproj" />
   </ItemGroup>
 
 </Project>

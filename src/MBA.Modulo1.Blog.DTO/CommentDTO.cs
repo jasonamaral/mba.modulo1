@@ -2,22 +2,19 @@
 
 namespace MBA.Modulo1.Blog.DTO;
 
-public class PostDTO
+public class CommentDTO
 {
     public Guid? Id { get; set; }
 
     [Required(ErrorMessage = "O campo {0} é obrigatório")]
-    public string? Title { get; set; }
-
-    [Required(ErrorMessage = "O campo {0} é obrigatório")]
+    [StringLength(1000, ErrorMessage = "O campo {0} deve ter entre {2} e {1} caracteres ", MinimumLength = 10)]
     public string? Content { get; set; }
 
     public DateTime? CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
 
-    [Required(ErrorMessage = "O campo {0} é obrigatório")]
+    public Guid PostId { get; set; }
+
     public Guid AuthorId { get; set; }
     public string UserName { get; set; }
-
-    public IEnumerable<CommentDTO>? Comments { get; set; }
 }

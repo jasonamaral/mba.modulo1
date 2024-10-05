@@ -6,76 +6,88 @@
 
 <div class="container mt-5">
     <div class="row">
-        @foreach (var post in Model)
+        @if (Model.Any())
         {
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title text-truncate">@post.Title</h5>
-                        <p class="card-text flex-grow-1">
-                            @{
-                                var contentPreview = post.Content?.Length > 100
-                                ? post.Content.Substring(0, 100) + "..."
-                                : post.Content;
+            @foreach (var post in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-truncate">@post.Title</h5>
+                            <p class="card-text flex-grow-1">
+                                @{
+                                    var contentPreview = post.Content?.Length > 100
+                                    ? post.Content.Substring(0, 100) + "..."
+                                    : post.Content;
+                                }
+                                @contentPreview
+                            </p>
+                            <button type="button" class="btn btn-primary mt-auto" data-bs-toggle="modal" data-bs-target="#modalPost_@post.Id">
+                                Leia mais
+                            </button>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Postado por <strong>@post.UserName</strong> em @post.CreatedAt.ToString()</small>
+                            @if ((bool)TempData["IsAuthenticated"]! && (post.AuthorId.ToString() == TempData["userId"]!.ToString() || (bool)TempData["IsAdmin"]!))
+                            {
+                                <div class="d-flex">
+                                    <a href="#" data-id="@post.Id" class="btn btn-sm btn-outline-primary edit-post-btn me-2" data-bs-toggle="modal" data-bs-target="#editModal">Editar</a>
+                                    <a href="#" data-id="@post.Id" class="btn btn-sm btn-outline-danger delete-post-btn" data-bs-toggle="modal" data-bs-target="#deleteModal">Apagar</a>
+                                </div>
                             }
-                            @contentPreview
-                        </p>
-                        <button type="button" class="btn btn-primary mt-auto" data-bs-toggle="modal" data-bs-target="#modalPost_@post.Id">
-                            Leia mais
-                        </button>
+                        </div>
                     </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Postado por <strong>@post.UserName</strong> em @post.CreatedAt.ToString()</small>
-                        @if ((bool)TempData["IsAuthenticated"]! && (post.AuthorId.ToString() == TempData["userId"]!.ToString() || (bool)TempData["IsAuthenticated"]!))
-                        {
-                            <div class="d-flex">
-                                <a href="#" data-id="@post.Id" class="btn btn-sm btn-outline-primary edit-post-btn me-2" data-bs-toggle="modal" data-bs-target="#editModal">Editar</a>
-                                <a href="#" data-id="@post.Id" class="btn btn-sm btn-outline-danger delete-post-btn" data-bs-toggle="modal" data-bs-target="#deleteModal">Apagar</a>
+                </div>
+
+                <!-- Modal for reading more -->
+                <div class="modal fade" id="modalPost_@post.Id" tabindex="-1" aria-labelledby="modalPostLabel_@post.Id" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalPostLabel_@post.Id">@post.Title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                        }
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal for reading more -->
-            <div class="modal fade" id="modalPost_@post.Id" tabindex="-1" aria-labelledby="modalPostLabel_@post.Id" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalPostLabel_@post.Id">@post.Title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>@post.Content</p>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="@Url.Action("Details", "Comments", new { id = post.Id })" class="btn btn-primary">Comentários</a>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <div class="modal-body">
+                                <p>@post.Content</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="@Url.Action("Details", "Comments", new { id = post.Id })" class="btn btn-primary">Comentários</a>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            }
+        }
+        else
+        {
+            <p class="text-muted">Cadastre-se e crie o primeiro seu post.</p>
         }
 
         <!-- Floating Add Box -->
         <div id="floatingBox" class="floating-box card shadow-lg">
-            <div id="dragHandle" class="card-header bg-success text-white">
-                <h4>Adicionar Post</h4>
+            <div id="dragHandle" class="card-header bg-dark text-white">
+                <h4>Nova postagem</h4>
             </div>
             <div class="card-body">
-                <form asp-action="AddPost" asp-controller="Home" method="post">
+                <form asp-action="AddPost" asp-controller="Home" method="post" id="formAddPost">
                     <div class="mb-3">
                         <label for="postTitle" class="form-label">Título</label>
-                        <input type="text" class="form-control" id="Title" name="title" value="" required>
+                        <input type="text" class="form-control" id="Title" name="title" value="" maxlength="50" required>
+                        @Html.ValidationMessageFor(j => j.FirstOrDefault()!.Title)
+                        
                     </div>
                     <div class="mb-3">
                         <label for="postContent" class="form-label">Conteúdo</label>
-                        <textarea class="form-control" id="Content" name="content" rows="5" required></textarea>
+                        <textarea class="form-control" id="Content" name="content" rows="5" maxlength="1000" required></textarea>
+                        @Html.ValidationMessageFor(j => j.FirstOrDefault()!.Content)
+                        <p id="charCount">0 / 1000</p>
+                        
                     </div>
                     @if ((bool)TempData["IsAuthenticated"]!)
                     {
-                        <button type="submit" class="btn btn-success">Postar</button>
+                        <button type="submit" class="btn btn-success" id="submitButton">Postar</button>
                     }
                     else
                     {
@@ -144,7 +156,16 @@
 
 @section Scripts {
     <script>
+    document.getElementById('Content').addEventListener('input', function () {
+        const maxLength = this.getAttribute('maxlength');
+        const currentLength = this.value.length;
+        document.getElementById('charCount').innerText = `${currentLength} / ${maxLength}`;
+    });
+
+
         $(function () {
+            $("#formAddPost").validate();
+
             $('.edit-post-btn').on('click', function () {
                 let postId = $(this).data('id');
                 let postTitle = $(this).closest('.card').find('.card-title').text().trim();
@@ -161,7 +182,6 @@
             $('.delete-post-btn').on('click', function () {
                 let postId = $(this).data('id');
                 $("#deleteForm input[name='id']").val(postId);
-                //$('#postId').val(postId);
                 let deleteUrl = '@Url.Action("DeletePost", "Home", new { id = "__id__" })'.replace('__id__', postId);
                 $('#deleteForm').attr('action', deleteUrl);
             });

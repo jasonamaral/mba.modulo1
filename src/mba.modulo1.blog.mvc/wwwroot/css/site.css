@@ -109,7 +109,7 @@ ul.list-unstyled li:nth-child(odd) {
     bottom: 20px;
     right: 20px;
     width: 300px;
-    height: 400px;
+    height: 410px;
     z-index: 1000;
     resize: none;
     overflow: hidden;
@@ -117,6 +117,8 @@ ul.list-unstyled li:nth-child(odd) {
 
     .floating-box .card-header {
         cursor: move;
+        border-radius: 10px;
+        padding: 10px;
     }
 
 .resize-handle {

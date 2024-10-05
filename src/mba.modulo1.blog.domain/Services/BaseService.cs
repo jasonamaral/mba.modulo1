@@ -23,7 +23,7 @@ public abstract class BaseService
         }
     }
 
-    protected void Notify(string msg) 
+    protected void Notify(string msg)
     {
         _notifier.Handle(new Notification(msg));
     }

@@ -39,8 +39,6 @@ public class PostRepository : Repository<Post>, IPostRepository
 
     public override async Task<List<Post>> GetAllAsync()
     {
-        //return await DbSet.AsNoTracking().ToListAsync();
-
         return await Db.Posts.AsNoTracking()
         .Include(j => j.User).ToListAsync();
     }

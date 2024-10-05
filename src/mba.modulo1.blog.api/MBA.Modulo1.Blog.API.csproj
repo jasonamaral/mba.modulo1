@@ -25,10 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MBA.Modulo1.Blog.DTO\MBA.Modulo1.Blog.DTO.csproj" />
-    <ProjectReference Include="..\..\MBA.Modulo1.Blog.IoC\MBA.Modulo1.Blog.IoC.csproj" />
     <ProjectReference Include="..\mba.modulo1.blog.data\MBA.Modulo1.Blog.Data.csproj" />
     <ProjectReference Include="..\mba.modulo1.blog.domain\MBA.Modulo1.Blog.Domain.csproj" />
+    <ProjectReference Include="..\MBA.Modulo1.Blog.DTO\MBA.Modulo1.Blog.DTO.csproj" />
+    <ProjectReference Include="..\MBA.Modulo1.Blog.IoC\MBA.Modulo1.Blog.IoC.csproj" />
   </ItemGroup>
 
   <ItemGroup>

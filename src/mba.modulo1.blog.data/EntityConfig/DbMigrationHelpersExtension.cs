@@ -1,9 +1,13 @@
 ﻿using mba.modulo1.blog.domain.Entities;
 using MBA.Modulo1.Blog.Data.Context;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-namespace MBA.Modulo1.Blog.API.Config;
+namespace MBA.Modulo1.Blog.Data.EntityConfig;
 
 public static class DbMigrationHelpersExtension
 {

@@ -14,7 +14,6 @@ public class PostValidation : AbstractValidator<Post>
 
         RuleFor(j => j.Title)
             .NotEmpty().WithMessage("O campo {PropertyName} precisa ser preechido")
-            .Length(2,50).WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLenght} caracteres");
-
+            .Length(2, 50).WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLenght} caracteres");
     }
 }
