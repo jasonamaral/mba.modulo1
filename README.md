@@ -40,19 +40,19 @@ O projeto consiste em:
 
 A estrutura do projeto é organizada da seguinte forma:
 - docs
-  - Especificação
-  - Tarefas para o Desenvolvimento
-  - Postman Environment
-  - Postman Collection
+  - [Especificação](https://github.com/jasonamaral/mba.modulo1/blob/feature/modulo1/docs/Projeto-Primeiro-Modulo-Mba-DevXpert.pdf)
+  - [Tarefas para o Desenvolvimento](https://github.com/jasonamaral/mba.modulo1/blob/feature/modulo1/docs/Projeto-Primeiro-Modulo-Mba-DevXpert.pdf)
+  - [Postman Environment](https://github.com/jasonamaral/mba.modulo1/blob/feature/modulo1/docs/MBA-Modulo1.postman_environment.json)
+  - [Postman Collection](https://github.com/jasonamaral/mba.modulo1/raw/feature/modulo1/docs/MBA.Modulo1.Blog.API.postman_collection.json)
 
 - src/
-  - mba.modulo1.blog.api/ - API RESTful 
-  - Blog.Api/ - API RESTful
-  - MBA.Modulo1.blog.data/ - Configuração do EF Core, Mapeamento de modelos
-  - MBA.Modulo1.blog.domain/ - Modelos de Dados
+  - MBA.Modulo1.Blog.api/ - API RESTful 
+  - MBA.Modulo1.Blog.Api/ - API RESTful
+  - MBA.Modulo1.Blog.data/ - Configuração do EF Core, Mapeamento de modelos
+  - MBA.Modulo1.Blog.domain/ - Modelos de Dados
   - MBA.Modulo1.Blog.DTO - View models
   - MBA.Modulo1.Blog.IoC - Injeção de dependencia
-  - MBA.Modulo1.blog.mvc - Projeto MVC
+  - MBA.Modulo1.Blog.mvc - Projeto MVC
 - README.md - Arquivo de Documentação do Projeto
 - FEEDBACK.md - Arquivo para Consolidação dos Feedbacks
 - .gitignore - Arquivo de Ignoração do Git
@@ -94,7 +94,7 @@ A estrutura do projeto é organizada da seguinte forma:
    - `dotnet run`
    - Acesse a documentação da API em: https://localhost:7023/swagger
    - Opcionalmente, a API pode ser testada com o Postman https://www.postman.com/downloads/ usando o [Collection](https://github.com/jasonamaral/mba.modulo1/raw/feature/modulo1/docs/MBA.Modulo1.Blog.API.postman_collection.json) e [Environment](https://github.com/jasonamaral/mba.modulo1/blob/feature/modulo1/docs/MBA-Modulo1.postman_environment.json)
- e 
+
 ## **7. Instruções de Configuração**
 
 - **JWT para API:** As chaves de configuração do JWT estão no `appsettings.json`.

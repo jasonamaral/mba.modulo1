@@ -14,6 +14,7 @@
                     <div class="card h-100">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title text-truncate">@post.Title</h5>
+                            <input type="hidden" name="content" value="@post.Content" />
                             <p class="card-text flex-grow-1">
                                 @{
                                     var contentPreview = post.Content?.Length > 100
@@ -117,7 +118,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="postContent" class="form-label">Conteúdo</label>
-                                <textarea class="form-control" id="postContent" name="content" rows="5" required></textarea>
+                                <textarea class="form-control" id="postContent" name="content" rows="5" required maxlength="1000"></textarea>
                             </div>
                             <input type="hidden" name="id" id="postId" value="">
                         </form>
@@ -169,7 +170,7 @@
             $('.edit-post-btn').on('click', function () {
                 let postId = $(this).data('id');
                 let postTitle = $(this).closest('.card').find('.card-title').text().trim();
-                let postContent = $(this).closest('.card').find('.card-text').text().trim();
+                let postContent = $(this).closest('.card').find('[name="content"]').val();
 
                 $('#postId').val(postId);
                 $('#postTitle').val(postTitle);
