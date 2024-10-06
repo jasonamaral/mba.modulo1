@@ -1,0 +1,71 @@
+ Planejamento e Setup do Projeto
+- Configurar Repositório Git: 
+	Criar repositório Git. OK
+
+- Configurar Projeto ASP.NET:
+	Criar e configurar o projeto ASP.NET Core:
+		MVC ok
+		API OK
+
+- Configurar Banco de Dados: 
+	Configurar Entity Framework Core para integração com o banco de dados. OK
+
+- Criar Modelos de Dados: 
+	Definir modelos de dados para Posts e Comentários. OK
+
+- Criar Migration Inicial:
+	Criar e aplicar a migration inicial para o banco de dados. OK
+
+ Desenvolvimento da API
+- Criar Endpoints para Listagem de Posts: 
+	Desenvolver endpoint GET para listar todos os posts. OK
+
+- Criar Endpoints para Criação de Posts: 
+	Desenvolver endpoint POST para criação de posts. OK
+	
+- Criar Endpoints para Edição de Posts: 
+	Desenvolver endpoint PUT para edição de posts. OK
+	
+- Criar Endpoints para Exclusão de Posts: 
+	Desenvolver endpoint DELETE para exclusão de posts. OK
+
+- Criar Endpoints para Visualização de Post: 
+	Desenvolver endpoint GET para visualizar um post específico. OK
+		
+- Criar Endpoints para Gerenciamento de Comentários: 
+	Desenvolver endpoints GET, POST, PUT e DELETE para comentários. OK
+
+ Desenvolvimento da Interface Web (MVC)
+- Criar Views para Listagem de Posts: OK
+	Desenvolver a view para listar todos os posts. ok
+
+- Criar Views para Criação de Posts: 
+	Desenvolver a view para criar novos posts. ok
+
+- Criar Views para Edição de Posts: 
+	Desenvolver a view para editar posts existentes.
+
+- Criar Views para Exclusão de Posts: 
+	Desenvolver a view para excluir posts. ok
+
+- Criar Views para Visualização de Posts: 
+	Desenvolver a view para visualizar um post específico. ok
+
+- Criar Views para Gerenciamento de Comentários: 
+	Desenvolver views para criar, editar, visualizar e excluir comentários em posts. ok
+
+
+ Autenticação e Autorização
+- Implementar Autenticação: 
+	Configurar autenticação usando Identity. ok
+	
+- Implementar Autorização: 
+	Implementar autorização para garantir que somente usuários autenticados possam criar, editar e excluir posts e comentários. ok
+	
+- Criar Roles de Usuário: 
+	Definir e implementar diferentes níveis de acesso (e.g., Administrador, Usuário). OK
+
+ Documentação
+- Documentar API RESTful: Criar documentação para a API utilizando ferramentas como Swagger.
+- Documentar Processo de Deploy: Documentar o processo de deploy e configuração da aplicação.
+- Criar Documentação para Desenvolvedores: Instruções para configuração do ambiente de desenvolvimento e contribuição no projeto.

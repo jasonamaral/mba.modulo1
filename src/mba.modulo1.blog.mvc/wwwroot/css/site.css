@@ -1,0 +1,136 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 15px;
+}
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 0.95rem;
+}
+
+.card-footer {
+    background-color: #f8f9fa;
+    border-top: none;
+}
+
+.modal-content {
+    border-radius: 20px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+.btn-close {
+    background: none;
+    border: none;
+}
+
+.btn-outline-primary:hover, .btn-outline-danger:hover {
+    background-color: #f8f9fa;
+    color: #000;
+}
+
+.post-content {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.media {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+ul.list-unstyled li:nth-child(even) {
+    background-color: #f1f3f5;
+}
+
+ul.list-unstyled li:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.link-opacity-50-hover {
+    transition: color 0.3s ease;
+}
+
+    .link-opacity-50-hover:hover {
+        color: #007bff;
+    }
+
+.btn-outline-primary:hover, .btn-outline-danger:hover {
+    background-color: #f8f9fa;
+    color: #000;
+}
+
+
+.floating-box {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 410px;
+    z-index: 1000;
+    resize: none;
+    overflow: hidden;
+}
+
+    .floating-box .card-header {
+        cursor: move;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+.resize-handle {
+    position: absolute;
+    bottom: 10px; 
+    right: 10px; 
+    width: 20px;
+    height: 20px;
+    cursor: se-resize;
+    color: #007bff;
+}
+
+    .resize-handle i {
+        font-size: 18px;
+    }
