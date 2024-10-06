@@ -4,7 +4,7 @@
 
 - Configurar Projeto ASP.NET:
 	Criar e configurar o projeto ASP.NET Core:
-		MVC
+		MVC ok
 		API OK
 
 - Configurar Banco de Dados: 
@@ -40,13 +40,13 @@
 	Desenvolver a view para listar todos os posts. ok
 
 - Criar Views para Criação de Posts: 
-	Desenvolver a view para criar novos posts.
+	Desenvolver a view para criar novos posts. ok
 
 - Criar Views para Edição de Posts: 
 	Desenvolver a view para editar posts existentes.
 
 - Criar Views para Exclusão de Posts: 
-	Desenvolver a view para excluir posts.
+	Desenvolver a view para excluir posts. ok
 
 - Criar Views para Visualização de Posts: 
 	Desenvolver a view para visualizar um post específico. ok

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using mba.modulo1.blog.domain.Entities;
+using MBA.Modulo1.Blog.Data.Repository;
 using MBA.Modulo1.Blog.Domain.Interfaces;
 using MBA.Modulo1.Blog.DTO;
 using Microsoft.AspNetCore.Authorization;
@@ -69,11 +70,11 @@ public class PostController : MainController
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-        var post = await GetPostByIdAsync(id);
+        var post = await _postRepository.GetByIdAsync(id);
         if (post == null) return NotFound();
-        if (!UserHasPermition(post.AuthorId)) return Forbid();
+        if (!UserHasPermition( new Guid(post.User.Id))) return Forbid();
 
-        //post.UpdatedAt = DateTime.Now;
+        post.AuthorId = post.User.Id;
         post.Title = postDTO.Title;
         post.Content = postDTO.Content;
 

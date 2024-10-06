@@ -20,10 +20,10 @@ public class CommentService : BaseService, ICommentService
         await _commentRepository.AddAsync(comment);
     }
 
-    public async Task UpdateAsync(Comment post)
+    public async Task UpdateAsync(Comment comment)
     {
-        if (!Validate(new CommentValidation(), post)) return;
-        await _commentRepository.UpdateAsync(post);
+        if (!Validate(new CommentValidation(), comment)) return;
+        await _commentRepository.UpdateAsync(comment);
     }
 
     public async Task DeleteAsync(Guid id)

@@ -10,8 +10,14 @@ public class AutomapperConfig : Profile
     {
         CreateMap<Post, PostDTO>()
             .ForMember(dest => dest.UserName, source => source.MapFrom(src => src.User.UserName))
+            .ForMember(dest => dest.AuthorId, source => source.MapFrom(src =>  src.User.Id))
             .ReverseMap();
 
+        CreateMap<PostDTO,Post>()
+            .ForPath(dest => dest.User.Id, source => source.MapFrom(src => src.AuthorId))
+            .ReverseMap();
+
+        CreateMap<PostDTO,Post>();
         CreateMap<Post, PostSaveDTO>().ReverseMap();
 
         CreateMap<Comment, CommentDTO>()
@@ -20,5 +26,6 @@ public class AutomapperConfig : Profile
 
         CreateMap<Comment, CommentSaveDTO>().ReverseMap();
         CreateMap<Comment, CommentUpdateDTO>().ReverseMap();
+        CreateMap<CommentUpdateDTO, Comment>();
     }
 }

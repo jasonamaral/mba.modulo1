@@ -50,15 +50,15 @@ public class CommentController : MainController
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-        var comment = await GetCommentByIdAsync(id);
+        var comment = await _commentRepository.GetByIdAsync(id);
         if (comment == null) return NotFound();
 
-        if (!UserHasPermition(comment.AuthorId)) return Forbid();
+        if (!UserHasPermition(new Guid(comment.AuthorId))) return Forbid();
 
-        comment.UpdatedAt = DateTime.Now;
         comment.Content = commentDTO.Content;
 
         await _commentService.UpdateAsync(_mapper.Map<Comment>(comment));
+
         return CustomResponse();
     }
 
