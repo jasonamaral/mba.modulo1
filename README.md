@@ -47,7 +47,6 @@ A estrutura do projeto é organizada da seguinte forma:
 
 - src/
   - MBA.Modulo1.Blog.api/ - API RESTful 
-  - MBA.Modulo1.Blog.Api/ - API RESTful
   - MBA.Modulo1.Blog.data/ - Configuração do EF Core, Mapeamento de modelos
   - MBA.Modulo1.Blog.domain/ - Modelos de Dados
   - MBA.Modulo1.Blog.DTO - View models
