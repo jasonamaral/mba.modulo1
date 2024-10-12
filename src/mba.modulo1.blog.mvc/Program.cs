@@ -1,6 +1,10 @@
 using mba.modulo1.blog.mvc.Data;
+using MBA.Modulo1.Blog.Data.Context;
 using MBA.Modulo1.Blog.Data.EntityConfig;
-using MBA.Modulo1.Blog.IoC;
+using MBA.Modulo1.Blog.Data.Repository;
+using MBA.Modulo1.Blog.Domain.Interfaces;
+using MBA.Modulo1.Blog.Domain.Notifications;
+using MBA.Modulo1.Blog.Domain.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +22,15 @@ builder.Services.AddDefaultIdentity<IdentityUser>()
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.ResolveDependencies();
+
+
+builder.Services.AddScoped<BlogDbContext>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<ICommnetRepository, CommentRepository>();
+
+builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<INotifier, Notifier>();
 
 var app = builder.Build();
 

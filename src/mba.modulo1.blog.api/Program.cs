@@ -1,7 +1,11 @@
 using MBA.Modulo1.Blog.API.Data;
+using MBA.Modulo1.Blog.Data.Context;
 using MBA.Modulo1.Blog.Data.EntityConfig;
+using MBA.Modulo1.Blog.Data.Repository;
 using MBA.Modulo1.Blog.Domain.DTO;
-using MBA.Modulo1.Blog.IoC;
+using MBA.Modulo1.Blog.Domain.Interfaces;
+using MBA.Modulo1.Blog.Domain.Notifications;
+using MBA.Modulo1.Blog.Domain.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -61,7 +65,14 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.ResolveDependencies();
+
+builder.Services.AddScoped<BlogDbContext>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<ICommnetRepository, CommentRepository>();
+
+builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<INotifier, Notifier>();
 
 var jwtSettingsSection = builder.Configuration.GetSection("JwtSettings");
 builder.Services.Configure<JwtSettings>(jwtSettingsSection);

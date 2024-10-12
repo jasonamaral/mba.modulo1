@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MBA.Modulo1.Blog.Data", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MBA.Modulo1.Blog.MVC", "src\mba.modulo1.blog.mvc\MBA.Modulo1.Blog.MVC.csproj", "{5D8A0325-709F-4D73-BE4A-82A8B2EF093D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MBA.Modulo1.Blog.IoC", "src\MBA.Modulo1.Blog.IoC\MBA.Modulo1.Blog.IoC.csproj", "{2C2C5AF2-0EF5-47FD-A4CC-20B4E7610DB4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,10 +41,6 @@ Global
 		{5D8A0325-709F-4D73-BE4A-82A8B2EF093D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D8A0325-709F-4D73-BE4A-82A8B2EF093D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D8A0325-709F-4D73-BE4A-82A8B2EF093D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2C2C5AF2-0EF5-47FD-A4CC-20B4E7610DB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C2C5AF2-0EF5-47FD-A4CC-20B4E7610DB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C2C5AF2-0EF5-47FD-A4CC-20B4E7610DB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C2C5AF2-0EF5-47FD-A4CC-20B4E7610DB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,7 +50,6 @@ Global
 		{1B04B41D-D163-4141-B22E-347FD7D268DC} = {75AFACD9-8F67-4308-8A03-4AAA72591CAB}
 		{FE69705F-D49F-4751-AFE2-165F3204B761} = {090DBEA4-8FED-410D-BAF6-D63C6BEFFA00}
 		{5D8A0325-709F-4D73-BE4A-82A8B2EF093D} = {613D7159-E78A-4C4C-B8CD-223C93842A09}
-		{2C2C5AF2-0EF5-47FD-A4CC-20B4E7610DB4} = {090DBEA4-8FED-410D-BAF6-D63C6BEFFA00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F0096109-7C8E-44FA-B70C-F3E6176700E8}

@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\mba.modulo1.blog.data\MBA.Modulo1.Blog.Data.csproj" />
-    <ProjectReference Include="..\MBA.Modulo1.Blog.IoC\MBA.Modulo1.Blog.IoC.csproj" />
   </ItemGroup>
 
 </Project>
