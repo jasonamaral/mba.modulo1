@@ -27,7 +27,7 @@ O projeto consiste em:
   - ASP.NET Core MVC
   - ASP.NET Core Web API
   - Entity Framework Core
-- **Banco de Dados:** SQL Server
+- **Banco de Dados:** SQL Server ou SQLite
 - **Autenticação e Autorização:**
   - ASP.NET Core Identity
   - JWT (JSON Web Token) para autenticação na API
@@ -49,8 +49,6 @@ A estrutura do projeto é organizada da seguinte forma:
   - MBA.Modulo1.Blog.api/ - API RESTful 
   - MBA.Modulo1.Blog.data/ - Configuração do EF Core, Mapeamento de modelos
   - MBA.Modulo1.Blog.domain/ - Modelos de Dados
-  - MBA.Modulo1.Blog.DTO - View models
-  - MBA.Modulo1.Blog.IoC - Injeção de dependencia
   - MBA.Modulo1.Blog.mvc - Projeto MVC
 - README.md - Arquivo de Documentação do Projeto
 - FEEDBACK.md - Arquivo para Consolidação dos Feedbacks
