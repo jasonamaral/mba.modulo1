@@ -31,13 +31,10 @@ public static class DbMigrationHelpers
         var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
 
         var context = scope.ServiceProvider.GetRequiredService<BlogDbContext>();
-        //var contextId = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-        if (env.IsDevelopment())
+        if (env.IsDevelopment() || env.IsStaging())
         {
             await context.Database.MigrateAsync();
-            // await contextId.Database.MigrateAsync();
-
             await EnsureSeedAdmin(context);
         }
     }

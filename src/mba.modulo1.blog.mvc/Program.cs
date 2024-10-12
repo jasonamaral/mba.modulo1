@@ -1,5 +1,4 @@
 using mba.modulo1.blog.mvc.Data;
-using MBA.Modulo1.Blog.Data.Context;
 using MBA.Modulo1.Blog.Data.EntityConfig;
 using MBA.Modulo1.Blog.IoC;
 using Microsoft.AspNetCore.Identity;
@@ -9,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(connectionString));
+builder.AddDatabseSelector();
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>()
@@ -23,7 +22,7 @@ builder.Services.ResolveDependencies();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
 {
     app.UseMigrationsEndPoint();
 }

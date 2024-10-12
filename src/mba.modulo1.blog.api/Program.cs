@@ -1,11 +1,9 @@
 using MBA.Modulo1.Blog.API.Data;
-using MBA.Modulo1.Blog.Data.Context;
 using MBA.Modulo1.Blog.Data.EntityConfig;
 using MBA.Modulo1.Blog.DTO;
 using MBA.Modulo1.Blog.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -54,9 +52,7 @@ builder.Services.AddSwaggerGen(c =>
     c.CustomSchemaIds(type => type.ToString());
 });
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<BlogDbContext>(opt => opt.UseSqlServer(connectionString));
-builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(connectionString));
+builder.AddDatabseSelector();
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddRoles<IdentityRole>()
@@ -91,7 +87,7 @@ builder.Services.AddAuthentication(opt =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
