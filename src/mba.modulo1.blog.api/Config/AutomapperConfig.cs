@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using mba.modulo1.blog.domain.Entities;
-using MBA.Modulo1.Blog.DTO;
+using MBA.Modulo1.Blog.Domain.DTO;
 
 namespace MBA.Modulo1.Blog.Data.Mappers;
 

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using mba.modulo1.blog.domain.Entities;
+using MBA.Modulo1.Blog.Domain.DTO;
 using MBA.Modulo1.Blog.Domain.Interfaces;
-using MBA.Modulo1.Blog.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

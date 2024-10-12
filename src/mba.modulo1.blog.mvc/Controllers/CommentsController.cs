@@ -2,8 +2,8 @@
 using mba.modulo1.blog.domain.Entities;
 using mba.modulo1.blog.mvc.Controllers;
 using MBA.Modulo1.Blog.Data.Context;
+using MBA.Modulo1.Blog.Domain.DTO;
 using MBA.Modulo1.Blog.Domain.Interfaces;
-using MBA.Modulo1.Blog.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
